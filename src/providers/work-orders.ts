@@ -49,8 +49,15 @@ export class WorkOrders {
   emitWorkOrders(): void {
  
         this.zone.run(() => {
+
+          console.log("neew");
+          this.http.get('http://74.208.165.188:5984/ics/_design/workOrders/_view/Work_Orders?startkey="n"&endkey="n"').map(res => res.json()).subscribe(data=> {console.log(data)});
+
+          
+
+
  
-            this.dataService.db.query('workOrders/Work_Orders').then((data) => {
+            this.dataService.db.query('workOrders/Work_Orders', {startkey:'ro', endkey:'ro'+ "\u9999"}).then((data) => {
  
                 let workOrders = data.rows.map(row => {
                     return row.value;
